@@ -1,36 +1,27 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "strict": true,
-        "esModuleInterop": true,
-        "moduleResolution": "node",
-        "forceConsistentCasingInFileNames": true,
-        "noEmitOnError": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noImplicitOverride": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "typeRoots": [
-            "./src/Types",
-            "./node_modules/@types"
+        "target": "es2017",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
         ],
-        "baseUrl": "./src",
-        "paths": {
-            "@/*": [
-                "./*"
-            ]
-        },
-        "jsx": "react-jsx"
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "types": ["google-one-tap", "google.accounts"]
     },
-    "exclude": [
-        "dist"
-    ],
-    "ts-node": {
-        "compilerOptions": {
-            "module": "commonjs"
-        }
-    }
+    "include": [
+        "src"
+    ]
 }
