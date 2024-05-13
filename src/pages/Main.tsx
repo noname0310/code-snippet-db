@@ -45,8 +45,7 @@ function Main(): JSX.Element {
                 {pagedListView}
                 {selectedSnippet && <SnippetView
                     snippet={selectedSnippet}
-                    onClose={() => setSelectedSnippet(null)}
-                    isMobile={isMobile} />}
+                    onClose={() => setSelectedSnippet(null)}/>}
             </ContentContainerDiv>
         </MainFlexDiv>
     );

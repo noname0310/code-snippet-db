@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { vs, vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import * as hljsStyles from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { SnippetData } from '../../constants/testSets';
 import { useMemo } from 'react';
+import { MEDIA_MAX_WIDTH } from '../../constants/css';
 
-interface SnippetViewDivProps {
-    isMobile: boolean;
-}
-
-const SnippetViewDiv = styled.div<SnippetViewDivProps>`
+const SnippetViewDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +14,11 @@ const SnippetViewDiv = styled.div<SnippetViewDivProps>`
 
     margin: 20px;
     height: calc(100% - 40px);
-    width: ${props => props.isMobile ? 'calc(100% - 40px)' : 'calc(100% - 490px)'};
+    width: calc(100% - 490px);
+    
+    @media (max-width: ${MEDIA_MAX_WIDTH}px) {
+        width: calc(100% - 40px);
+    }
 
     background-color: ${props => props.theme.colors.primary};
     color: ${props => props.theme.colors.primaryInverse};
@@ -89,13 +90,16 @@ const SnippetViewDescriptionDiv = styled.div`
     width: 100%;
     margin-top: 10px;
     display: flex;
-    align-items: center;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
 `;
 
 const SnippetViewContentText = styled.p`
     margin: 0;
     padding: 0;
     font-size: 15px;
+    margin-bottom: 5px;
 `;
 
 const SnippetViewFooterDiv = styled.div`
@@ -119,7 +123,6 @@ const SnippetViewFooterText = styled.p`
 interface SnippetViewProps {
     snippet: SnippetData;
     onClose: () => void;
-    isMobile: boolean;
 }
 
 function SnippetView(props: SnippetViewProps): JSX.Element {
@@ -127,20 +130,20 @@ function SnippetView(props: SnippetViewProps): JSX.Element {
 
     const style = useMemo((): { [key: string]: React.CSSProperties } => {
         return {
-            ...vscDarkPlus || vs,
-            'pre[class*="language-"]': {
-                ...vscDarkPlus['pre[class*="language-"]'] || vs['pre[class*="language-"]'],
+            ...hljsStyles.vs2015 || hljsStyles.vs,
+            'hljs': {
+                ...hljsStyles.vs2015['hljs'] || hljsStyles.vs['hljs'],
                 'width': '100%',
                 'height': 'auto',
-                'overflowY': 'visible',
                 'padding': '10px',
-                'boxSizing': 'border-box'
-            },
+                'boxSizing': 'border-box',
+                'overflowX': 'clip'
+            }
         };
     }, []);
 
     return (
-        <SnippetViewDiv isMobile={props.isMobile}>
+        <SnippetViewDiv>
             <SnippetViewTopBarDiv>
                 <SnippetViewCloseButton onClick={() => onClose()}>Close</SnippetViewCloseButton>
             </SnippetViewTopBarDiv>
@@ -151,9 +154,11 @@ function SnippetView(props: SnippetViewProps): JSX.Element {
                     </SnippetViewTitleDiv>
                 </SnippetViewHeaderDiv>
                 <SnippetViewDescriptionDiv>
-                    <SnippetViewContentText>{snippet.description}</SnippetViewContentText>
+                    {snippet.description.split('\n').map((description, index) => (
+                        <SnippetViewContentText key={index}>{description}</SnippetViewContentText>
+                    ))}
                 </SnippetViewDescriptionDiv>
-                <SyntaxHighlighter language="javascript" style={style}>
+                <SyntaxHighlighter language="javascript" style={style} showLineNumbers={true} wrapLongLines={true}>
                     {snippet.code}
                 </SyntaxHighlighter>
                 <SnippetViewFooterDiv>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { SnippetData, findSnippets } from '../../constants/testSets';
 import { useMemo } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { vs, vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import * as hljsStyles from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 interface ListViewContainerDivProps {
     sidebar: boolean;
@@ -73,7 +73,14 @@ const ListViewDescriptionDiv = styled.div`
     width: 100%;
     margin-top: 10px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+`;
+
+const ListViewDescriptionText = styled.p`
+    margin: 0;
+    margin-top: 5px;
 `;
 
 interface ListViewItemProps {
@@ -86,9 +93,9 @@ function ListViewItem(props: ListViewItemProps): JSX.Element {
 
     const style = useMemo((): { [key: string]: React.CSSProperties } => {
         return {
-            ...vscDarkPlus || vs,
-            'pre[class*="language-"]': {
-                ...vscDarkPlus['pre[class*="language-"]'] || vs['pre[class*="language-"]'],
+            ...hljsStyles.vs2015 || hljsStyles.vs,
+            'hljs': {
+                ...hljsStyles.vs2015['hljs'] || hljsStyles.vs['hljs'],
                 'width': '100%',
                 'padding': '10px',
                 'boxSizing': 'border-box',
@@ -103,7 +110,9 @@ function ListViewItem(props: ListViewItemProps): JSX.Element {
                     {item.name}
                 </ListViewTitleDiv>
                 <ListViewDescriptionDiv>
-                    {item.description}
+                    {item.description.trim().split('\n').slice(0, 3).map((line, idx) => (
+                        <ListViewDescriptionText key={idx}>{line}</ListViewDescriptionText>
+                    ))}
                 </ListViewDescriptionDiv>
             </ListViewHeaderDiv>
               
