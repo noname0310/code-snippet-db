@@ -43,7 +43,7 @@ root.render(
     // <React.StrictMode>
     <ApolloProvider client={client}>
         <AuthProvider>
-            <ThemeProvider theme={LIGHT_THEME || DARK_THEME}>
+            <ThemeProvider theme={DARK_THEME || LIGHT_THEME}>
                 <ToastProvider>
                     <JwtTokenRefresher />
                     <App/>

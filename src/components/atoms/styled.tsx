@@ -20,7 +20,7 @@ export const InnerFlexForm1 = styled.form`
     align-items: center;
     justify-content: start;
     width: 500px;
-    background-color: ${props => props.theme.colors.secondaryBG};
+    background-color: ${props => props.theme.colors.secondaryBackground};
     padding: 20px;
     box-sizing: border-box;
 
@@ -29,8 +29,6 @@ export const InnerFlexForm1 = styled.form`
     @media (max-width: ${MEDIA_MAX_WIDTH}px) {
         width: calc(100% - 40px);
     }
-
-    border-radius: 30px;
 `;
 
 export const InnerFlexDiv1 = styled.div`
@@ -39,7 +37,7 @@ export const InnerFlexDiv1 = styled.div`
     align-items: center;
     justify-content: start;
     width: 500px;
-    background-color: ${props => props.theme.colors.secondaryBG};
+    background-color: ${props => props.theme.colors.secondaryBackground};
     padding: 20px;
     box-sizing: border-box;
     
@@ -48,8 +46,6 @@ export const InnerFlexDiv1 = styled.div`
     @media (max-width: ${MEDIA_MAX_WIDTH}px) {
         width: calc(100% - 40px);
     }
-
-    border-radius: 30px;
 `;
 
 export const TextInput1 = styled.input`
@@ -63,7 +59,6 @@ export const TextInput1 = styled.input`
     margin-bottom: 20px;
     box-sizing: border-box;
     padding: 0 10px;
-    border-radius: 30px;
 `;
 
 export const Button1 = styled.button`
@@ -74,7 +69,6 @@ export const Button1 = styled.button`
     color: ${props => props.theme.colors.textLightest};
     font-size: 15px;
     padding: 0;
-    border-radius: 30px;
 
     &:hover {
         background-color: ${props => props.theme.colors.buttonHover};

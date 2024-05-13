@@ -4,7 +4,9 @@ import {
     OuterFlexDiv
 } from '../components/atoms/styled';
 import NavBar from '../components/organisms/NavBar';
-import PagedListView from '../components/organisms/PagedListView';
+import PagedListView from '../components/organisms/SearchResultListView';
+import { snippets } from '../constants/testSets';
+import { useState } from 'react';
 
 const MainFlexDiv = styled(OuterFlexDiv)`
     justify-content: flex-start;
@@ -13,15 +15,16 @@ const MainFlexDiv = styled(OuterFlexDiv)`
 `;
 
 function Main(): JSX.Element {
+    const [searchQuery, setSearchQuery] = useState<string | null>(null);
+
     return (
         <MainFlexDiv>
-            <NavBar/>
-            <PagedListView items={[
-                {id: '1', name: 'test'},
-                {id: '2', name: 'test2'},
-                {id: '3', name: 'test3'},
-                {id: '4', name: 'test4'}
-            ]} pageCount={10} currentPage={3} onPageChange={() => {/* */}}/>
+            <NavBar onSearch={setSearchQuery} />
+            <PagedListView
+                query={searchQuery}
+                items={snippets}
+                onItemSelect={(item) => console.log(item)}
+            />
         </MainFlexDiv>
     );
 }

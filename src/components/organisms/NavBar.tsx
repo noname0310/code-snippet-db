@@ -2,7 +2,8 @@ import {
     memo,
     useCallback,
     useEffect,
-    useState} from 'react';
+    useState
+} from 'react';
 import { 
     Link
 } from 'react-router-dom';
@@ -20,27 +21,40 @@ const NavBarOuterDiv = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 20px;
-    height: 60px;
+    padding: 10px;
+    height: 50px;
     width: 100%;
     background-color: ${props => props.theme.colors.secondary};
     box-sizing: border-box;
 
     position: relative;
     z-index: 1;
+
+    @media (max-width: ${MEDIA_MAX_WIDTH}px) {
+        padding: 0px 20px;
+    }
+`;
+
+const NavBarInnerDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    height: 100%;
 `;
 
 const NavBarDiv = styled.div`
     display: flex;
     align-items: center;
 
-    width: 500px;
+    width: auto;
     height: 100%;
-    padding: 0px 20px;
 `;
 
 const NavBarLeftDiv = styled(NavBarDiv)`
     justify-content: flex-start;
+    flex-grow: 1;
 `;
 
 const NavBarRightDiv = styled(NavBarDiv)`
@@ -51,7 +65,7 @@ const NavBarLink = styled(Link)`
     height: 100%;
     min-width: 100px;
     font-size: 15px;
-    padding: 0px 10px;
+    margin-left: 10px;
     text-decoration: none;
 
     background-color: rgba(255, 255, 255, 0);
@@ -76,6 +90,7 @@ const NavBarLink = styled(Link)`
         align-items: center;
 
         padding: 0px 40px;
+        margin: 0px;
     }
 
     display: flex;
@@ -83,37 +98,44 @@ const NavBarLink = styled(Link)`
     align-items: center;
 `;
 
-const NavBarButton = styled.button`
-    height: 100%;
-    min-width: 100px;
-    border: none;
+const NavbarSearchInputDiv = styled.input`
+    height: 35px;
+    width: 100%;
+    padding: 0px 14px;
+    margin-left: 20px;
     font-size: 15px;
-    padding: 0px 10px;
-
-    background-color: rgba(255, 255, 255, 0);
+    border: none;
     color: ${props => props.theme.colors.backgroundInverse};
+    background-color: ${props => props.theme.colors.tertiary};
+    outline: none;
 
-    &:hover {
-        color: ${props => props.theme.colors.buttonHover};
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    &:active {
-        color: ${props => props.theme.colors.buttonActive};
+    &:focus {
         background-color: rgba(255, 255, 255, 0.2);
     }
 
     @media (max-width: ${MEDIA_MAX_WIDTH}px) {
-        height: 50px;
-        width: 100%;
-
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-
-        padding: 0px 40px;
+        margin-left: 0px;
+        margin-right: 20px;
     }
 `;
+
+interface NavbarSearchInputProps {
+    onSearch: (query: string) => void;
+}
+
+function NavbarSearchInput(props: NavbarSearchInputProps): JSX.Element {
+    const [query, setQuery] = useState('');
+
+    const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setQuery(e.target.value);
+    }, [setQuery]);
+
+    useDebounce(() => props.onSearch(query), 500, [query]);
+
+    return (
+        <NavbarSearchInputDiv type='text' placeholder='Search...' onChange={handleSearch}/>
+    );
+}
 
 const UserInfoDiv = styled.div`
     display: flex;
@@ -126,22 +148,6 @@ const UserInfoDiv = styled.div`
         width: 100%;
     }
 `;
-
-function LeftNavBarButtons(): JSX.Element {
-    return (
-        <>
-            <NavBarButton>
-                Button1
-            </NavBarButton>
-            <NavBarButton>
-                Button2
-            </NavBarButton>
-            <NavBarButton>
-                Button3
-            </NavBarButton>
-        </>
-    );
-}
 
 function RightNavbarButtons(): JSX.Element {
     const isLoggedIn = useIsLoggedIn();
@@ -163,18 +169,20 @@ function RightNavbarButtons(): JSX.Element {
     );
 }
 
-function PcNavBar(): JSX.Element {
+function PcNavBar(props: NavbarSearchInputProps): JSX.Element {
     return (
         <NavBarOuterDiv>
-            <NavBarLeftDiv>
-                <Link to={'/'}>
-                    <LogoSmall1/>
-                </Link>
-                <LeftNavBarButtons/>
-            </NavBarLeftDiv>
-            <NavBarRightDiv>
-                <RightNavbarButtons/>
-            </NavBarRightDiv>
+            <NavBarInnerDiv>
+                <NavBarLeftDiv>
+                    <Link to={'/'}>
+                        <LogoSmall1/>
+                    </Link>
+                    <NavbarSearchInput onSearch={props.onSearch}/>
+                </NavBarLeftDiv>
+                <NavBarRightDiv>
+                    <RightNavbarButtons/>
+                </NavBarRightDiv>
+            </NavBarInnerDiv>
         </NavBarOuterDiv>
     );
 }
@@ -190,7 +198,7 @@ const MobileNavBarPanelDiv = styled.div<MobileNavBarPanelDivProps>`
     align-items: center;
 
     position: absolute;
-    top: 60px;
+    top: 50px;
     width: 100%;
 
     background-color: ${props => props.theme.colors.secondary};
@@ -198,7 +206,7 @@ const MobileNavBarPanelDiv = styled.div<MobileNavBarPanelDivProps>`
     transform: ${props => props.isOpen ? 'translateY(0%)' : 'translateY(-100%)'};
 `;
 
-function MobileNavBar(): JSX.Element {
+function MobileNavBar(props: NavbarSearchInputProps): JSX.Element {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = useCallback(() => {
@@ -209,14 +217,14 @@ function MobileNavBar(): JSX.Element {
         <>
             <NavBarOuterDiv>
                 <NavBarLeftDiv>
-                    <LogoSmall1 />
+                    <NavbarSearchInput onSearch={props.onSearch}/>
                 </NavBarLeftDiv>
                 <NavBarRightDiv>
                     <MenuButton isOpen={isOpen} onClick={handleClick}/>
                 </NavBarRightDiv>
             </NavBarOuterDiv>
             <MobileNavBarPanelDiv isOpen={isOpen}>
-                <LeftNavBarButtons/>
+                <LogoSmall1/>
                 <PaddingDiv height='30px'/>
                 <RightNavbarButtons/>
             </MobileNavBarPanelDiv>
@@ -227,7 +235,11 @@ function MobileNavBar(): JSX.Element {
 const PcNavBarMemo = memo(PcNavBar);
 const MobileNavBarMemo = memo(MobileNavBar);
 
-function NavBar(): JSX.Element {
+interface NavBarProps {
+    onSearch: (query: string) => void;
+}
+
+function NavBar(props: NavBarProps): JSX.Element {
     const [isMobile, setIsMobile] = useState(false);
     const [debouncedIsMobile, setDebouncedIsMobile] = useState(false);
     const windowSize = useWindowSize();
@@ -246,7 +258,10 @@ function NavBar(): JSX.Element {
 
     return (
         <>
-            {!debouncedIsMobile ? <PcNavBarMemo /> : <MobileNavBarMemo />}
+            {!debouncedIsMobile
+                ? <PcNavBarMemo onSearch={props.onSearch}/>
+                : <MobileNavBarMemo onSearch={props.onSearch}/>
+            }
         </>
     );
 }

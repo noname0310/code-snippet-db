@@ -3,7 +3,7 @@ export const MEDIA_MAX_WIDTH = 768;
 export const LIGHT_THEME = {
     colors: {
         background: '#fff',
-        secondaryBG: '#FFFFFF',
+        secondaryBackground: '#FFFFFF',
         primary: '#fdfdfd',
         secondary: '#eee',
         tertiary: '#f5f5f5',
@@ -35,13 +35,15 @@ export const LIGHT_THEME = {
 export const DARK_THEME = {
     colors: {
         background: '#111',
+        secondaryBackground: '#222',
         primary: '#151515',
         secondary: '#232323',
         tertiary: '#090909',
+
         backgroundInverse: '#fff',
         primaryInverse: '#eee',
 
-        textRegular: '#000',
+        textRegular: '#f0f0f0',
         textLight: 'rgb(168, 160, 149)',
         textLighter: 'rgb(157, 148, 136)',
         textLightest: '#fff',
@@ -51,9 +53,9 @@ export const DARK_THEME = {
         warning: '#ffc107',
         info: '#7A86B6',
 
-        button: '#00b0d0',
-        buttonHover: '#00bcd4',
-        buttonActive: '#0097a7',
+        button: '#888888',
+        buttonHover: '#999999',
+        buttonActive: '#777777',
 
         link: '#00b0d0',
         linkHover: '#00bcd4',
