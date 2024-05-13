@@ -1,7 +1,6 @@
 import {
     memo,
     useCallback,
-    useEffect,
     useState
 } from 'react';
 import { 
@@ -13,9 +12,9 @@ import { MEDIA_MAX_WIDTH } from '../../constants/css';
 import useDebounce from '../../hooks/useDebounce';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import useCurrentUser from '../../hooks/useCurrentUser';
-import useWindowSize from '../../hooks/useWindowSize';
 import MenuButton from '../atoms/MenuButton';
 import { LogoSmall1, PaddingDiv } from '../atoms/styled';
+import useDebouncedIsMobile from '../../hooks/useDebouncedIsMobile';
 
 const NavBarOuterDiv = styled.div`
     display: flex;
@@ -31,7 +30,8 @@ const NavBarOuterDiv = styled.div`
     z-index: 1;
 
     @media (max-width: ${MEDIA_MAX_WIDTH}px) {
-        padding: 0px 20px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 `;
 
@@ -127,7 +127,7 @@ function NavbarSearchInput(props: NavbarSearchInputProps): JSX.Element {
     const [query, setQuery] = useState('');
 
     const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value);
+        setQuery(e.target.value.trim());
     }, [setQuery]);
 
     useDebounce(() => props.onSearch(query), 500, [query]);
@@ -240,25 +240,11 @@ interface NavBarProps {
 }
 
 function NavBar(props: NavBarProps): JSX.Element {
-    const [isMobile, setIsMobile] = useState(false);
-    const [debouncedIsMobile, setDebouncedIsMobile] = useState(false);
-    const windowSize = useWindowSize();
-
-    useDebounce(() => {
-        setDebouncedIsMobile(isMobile);
-    }, 500, [isMobile, setDebouncedIsMobile]);
-
-    useEffect(() => {
-        setDebouncedIsMobile(window.innerWidth < MEDIA_MAX_WIDTH);
-    }, []);
-
-    useEffect(() => {
-        setIsMobile(windowSize.width < MEDIA_MAX_WIDTH);
-    }, [windowSize.width]);
+    const isMobile = useDebouncedIsMobile();
 
     return (
         <>
-            {!debouncedIsMobile
+            {!isMobile
                 ? <PcNavBarMemo onSearch={props.onSearch}/>
                 : <MobileNavBarMemo onSearch={props.onSearch}/>
             }
