@@ -14,6 +14,11 @@ export class CodeSnippetResolver {
         private readonly codeSnippetRepository: CodeSnippetRepository
     ) {}
 
+    @Query(() => [CodeSnippet])
+    async snippets() {
+        return await this.codeSnippetRepository.find();
+    }
+
     @Authorized()
     @Query(() => [CodeSnippet])
     async mySnippets(
