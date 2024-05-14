@@ -6,6 +6,7 @@ import {
 import styled from 'styled-components';
 
 import {
+    TextArea1,
     TextInput1
 } from './styled';
 
@@ -27,13 +28,31 @@ interface RequiredTextFieldProps {
     error: string|null;
     width?: string;
     height?: string;
+    multiline?: false;
 }
+
+interface RequiredTextAreaProps {
+    placeholder: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    type?: string;
+    error: string|null;
+    width?: string;
+    height?: string;
+    multiline: true;
+}
+
 
 interface RequiredTextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     isError?: boolean;
 }
 
 const RequiredTextInput = styled(TextInput1)<RequiredTextInputProps>`
+    margin-bottom: 0px;
+    border: ${ props => props.isError ? `1px solid ${props.theme.colors.error}` : '' };
+`;
+
+const RequiredTextArea = styled(TextArea1)<RequiredTextInputProps>`
     margin-bottom: 0px;
     border: ${ props => props.isError ? `1px solid ${props.theme.colors.error}` : '' };
 `;
@@ -48,7 +67,7 @@ const MarginDiv = styled.div`
     margin-bottom: 10px;
 `;
 
-function RequiredTextField(props: RequiredTextFieldProps): JSX.Element {
+function RequiredTextField<T extends RequiredTextFieldProps | RequiredTextAreaProps>(props: T): JSX.Element {
     const {
         placeholder,
         value,
@@ -56,7 +75,8 @@ function RequiredTextField(props: RequiredTextFieldProps): JSX.Element {
         type,
         error: errorText,
         width,
-        height
+        height,
+        multiline
     } = props;
 
     const [errorMessage, setErrorMessage] = useState<string|null>(null);
@@ -65,19 +85,26 @@ function RequiredTextField(props: RequiredTextFieldProps): JSX.Element {
         setErrorMessage(errorText);
     }, [errorText, setErrorMessage]);
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(e);
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        onChange(e as React.ChangeEvent<any>);
     }, [onChange]);
 
     return (
         <Container width={width ?? '100%'} height={height ?? 'auto'}>
-            <RequiredTextInput
-                type={type}
-                placeholder={placeholder}
-                value={value}
-                onChange={handleChange}
-                isError={errorMessage !== null}
-            />
+            {multiline
+                ? <RequiredTextArea
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={handleChange}
+                    isError={errorMessage !== null}
+                />
+                : <RequiredTextInput
+                    type={type}
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={handleChange}
+                    isError={errorMessage !== null}
+                />}
             {errorMessage !== null && <IsValidTextDiv>{errorMessage}</IsValidTextDiv>}
             <MarginDiv />
         </Container>

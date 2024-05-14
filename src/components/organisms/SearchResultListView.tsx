@@ -3,6 +3,7 @@ import { SnippetData, findSnippets } from '../../constants/testSets';
 import { useMemo } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import * as hljsStyles from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 
 interface ListViewContainerDivProps {
     sidebar: boolean;
@@ -136,15 +137,23 @@ function ListViewItem(props: ListViewItemProps): JSX.Element {
     );
 }
 
+const ListViewItemUploadDiv = styled(ListViewItemDiv)`
+    padding: 10px;
+    user-select: none;
+    word-wrap: break-word;
+    display: block;
+`;
+
 interface PagedListViewProps {
     query: string | null;
     items: SnippetData[];
     onItemSelect: (item: SnippetData) => void;
     sidebar: boolean;
+    onUpload: () => void;
 }
 
 function PagedListView(props: PagedListViewProps): JSX.Element {
-    const { query, items, onItemSelect, sidebar } = props;
+    const { query, items, onItemSelect, sidebar, onUpload } = props;
 
     const queryResult = useMemo(() => {
         const data = !query
@@ -155,9 +164,15 @@ function PagedListView(props: PagedListViewProps): JSX.Element {
             <ListViewItem key={item.id} item={item} onClick={() => onItemSelect(item)}/>
         ));
     }, [query, items, items.length]);
+    
+    const isLoggedIn = useIsLoggedIn();
 
     return (
         <ListViewContainerDiv sidebar={sidebar}>
+            { isLoggedIn &&
+                <ListViewItemUploadDiv onClick={onUpload}>
+                    { query ? `Upload a new snippet for "${query}"` : 'Upload a new snippet' }
+                </ListViewItemUploadDiv>}
             {queryResult}
         </ListViewContainerDiv>
     );

@@ -61,6 +61,20 @@ export const TextInput1 = styled.input`
     padding: 0 10px;
 `;
 
+export const TextArea1 = styled.textarea`
+    width: 100%;
+    height: 150px;
+    border: none;
+    font-size: 15px;
+    color: ${props => props.theme.colors.primaryInverse};
+    background-color: ${props => props.theme.colors.background};
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    resize: vertical;
+`;
+
 export const Button1 = styled.button`
     width: 100%;
     height: 50px;
