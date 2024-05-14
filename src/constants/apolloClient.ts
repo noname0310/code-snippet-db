@@ -1,1 +1,1 @@
-export const API_URL = 'https://api.hkt-2022.kro.kr/graphql';
+export const API_URL = 'http://localhost:49800/graphql';

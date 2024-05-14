@@ -9,6 +9,7 @@ import { ToastProvider } from './contexts/ToastContext';
 import { setContext } from '@apollo/client/link/context';
 import { JWT_LOCAL_STORAGE_KEY } from './constants/localStorage';
 import JwtTokenRefresher from './components/organisms/JwtTokenRefresher';
+import { API_URL } from './constants/apolloClient';
 
 export function getSession(): { token: string | null } {
     return {
@@ -17,7 +18,7 @@ export function getSession(): { token: string | null } {
 }
 
 const httpLink = createHttpLink({
-    uri: 'https://api.hkt-2022.kro.kr/graphql',
+    uri: API_URL
 });
 
 const authLink = setContext((_, { headers }) => {

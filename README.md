@@ -17,17 +17,22 @@ simple code snippet database with eslint integration
 - Node.js
 - npm
 - mysql
+- mailserver
 
 ### Run development server
 
-for start server run the following commands
+for start server first set the environment variables in the `server/src/const.ts` and `server/src/secret.ts` files
+
+then run the following commands
 ```bash
 cd server
 npm install
 npm watch
 ```
 
-for start client run the following commands
+for start client set the server url in the `src/constants/apolloClient.ts` file
+
+then run the following commands
 ```bash
 npm install
 npm start

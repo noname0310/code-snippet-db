@@ -28,10 +28,7 @@ export function getUser(
                 User(id: $id) {
                     id,
                     username,
-                    createdAt,
-                    ranking {
-                        totalRanking
-                    }
+                    createdAt
                 }
             }
         `,
@@ -48,10 +45,7 @@ export function getCurrentUser(
                 currentUser {
                     id,
                     username,
-                    createdAt,
-                    ranking {
-                        totalRanking
-                    }
+                    createdAt
                 }
             }
         `

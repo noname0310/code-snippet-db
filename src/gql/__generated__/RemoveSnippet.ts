@@ -4,16 +4,13 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetCurrentUser
+// GraphQL mutation operation: RemoveSnippet
 // ====================================================
 
-export interface GetCurrentUser_currentUser {
-  __typename: "User";
-  id: string;
-  username: string;
-  createdAt: any;
+export interface RemoveSnippet {
+  removeSnippet: number;
 }
 
-export interface GetCurrentUser {
-  currentUser: GetCurrentUser_currentUser;
+export interface RemoveSnippetVariables {
+  id: number;
 }

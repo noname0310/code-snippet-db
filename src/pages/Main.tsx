@@ -56,7 +56,6 @@ function Main(): JSX.Element {
             <UploadSnippetView
                 onClose={() => setIsUploadFormOpen(false)}
                 onSubmit={(snippet) => {
-                    console.log(snippet);
                     snippets.push(snippet);
                     setIsUploadFormOpen(false);
                 }} />

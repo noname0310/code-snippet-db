@@ -10,6 +10,9 @@ import { RequestResetPasswordEmail, RequestResetPasswordEmailVariables } from '.
 import { ResetPassword, ResetPasswordVariables } from './__generated__/ResetPassword';
 import { UpdateUser, UpdateUserVariables } from './__generated__/UpdateUser';
 import { VerifyEmail, VerifyEmailVariables } from './__generated__/VerifyEmail';
+import { CreateSnippet, CreateSnippetVariables } from './__generated__/CreateSnippet';
+import { UpdateSnippet, UpdateSnippetVariables } from './__generated__/UpdateSnippet';
+import { RemoveSnippet, RemoveSnippetVariables } from './__generated__/RemoveSnippet';
 
 export function registerLocal(
     apolloClient: ApolloClient<any>,
@@ -163,6 +166,56 @@ export function requestResetPasswordEmail(
         mutation: gql`
             mutation RequestResetPasswordEmail($email: String!) {
                 requestResetPasswordEmail(email: $email)
+            }
+        `,
+        variables
+    });
+}
+
+export function createSnippet(
+    apolloClient: ApolloClient<any>,
+    variables: CreateSnippetVariables
+) {
+    return apolloClient.mutate<CreateSnippet>({
+        mutation: gql`
+            mutation CreateSnippet($snippet: CodeSnippetInput!) {
+                createSnippet(snippet: $snippet) {
+                    id,
+                    name,
+                    description,
+                    content,
+                    contentLanguage
+                }
+            }
+        `,
+        variables
+    });
+}
+
+export function updateSnippet(
+    apolloClient: ApolloClient<any>,
+    variables: UpdateSnippetVariables
+) {
+    return apolloClient.mutate<UpdateSnippet>({
+        mutation: gql`
+            mutation UpdateSnippet($id: Int!, $snippet: CodeSnippetUpdate!) {
+                updateSnippet(id: $id, snippet: $snippet) {
+                    id
+                }
+            }
+        `,
+        variables
+    });
+}
+
+export function removeSnippet(
+    apolloClient: ApolloClient<any>,
+    variables: RemoveSnippetVariables
+) {
+    return apolloClient.mutate<RemoveSnippet>({
+        mutation: gql`
+            mutation RemoveSnippet($id: Int!) {
+                removeSnippet(id: $id)
             }
         `,
         variables

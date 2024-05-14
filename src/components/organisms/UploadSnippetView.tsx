@@ -233,7 +233,7 @@ function UploadSnippetView(props: SnippetViewProps): JSX.Element {
         }
 
         onSubmit({
-            id: snippets.length.toString(),
+            id: (snippets.length + 1).toString(),
             name: snippetName,
             author: user.username,
             description: snippetDescription,
