@@ -85,7 +85,7 @@ export class BezierInterpolator {
      * @param x Weight
      * @returns Interpolated value
      */
-    public static Interpolate(x1, x2, y1, y2, x): number {
+    static Interpolate(x1, x2, y1, y2, x) {
         let c = 0.5;
         let t = c;
         let s = 1.0 - t;
@@ -109,7 +109,7 @@ export class BezierInterpolator {
             t += (ft < 0) ? c : -c;
             s = 1.0 - t;
         }
-        return (sst3! * y1) + (stt3! * y2) + ttt!;
+        return (sst3 * y1) + (stt3 * y2) + ttt;
     }
 }
 `,

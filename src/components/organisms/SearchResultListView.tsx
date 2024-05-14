@@ -60,18 +60,25 @@ const ListViewHeaderDiv = styled.div`
 const ListViewTitleDiv = styled.div`
     display: flex;
     width: 100%;
-    align-items: center;
+    flex-direction: column; 
+    align-items: start;
     justify-content: start;
     
     box-sizing: border-box;
+`;
 
+const ListViewSnippetNameDiv = styled.div`
     font-size: 20px;
+`;
+
+const ListViewSnippetAuthorDiv = styled.div`
+    font-size: 15px;
 `;
 
 const ListViewDescriptionDiv = styled.div`
     flex: 1;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -107,7 +114,12 @@ function ListViewItem(props: ListViewItemProps): JSX.Element {
         <ListViewItemDiv onClick={onClick}>
             <ListViewHeaderDiv>
                 <ListViewTitleDiv>
-                    {item.name}
+                    <ListViewSnippetNameDiv>
+                        {item.name}
+                    </ListViewSnippetNameDiv>
+                    <ListViewSnippetAuthorDiv>
+                        {item.author}
+                    </ListViewSnippetAuthorDiv>
                 </ListViewTitleDiv>
                 <ListViewDescriptionDiv>
                     {item.description.trim().split('\n').slice(0, 3).map((line, idx) => (
