@@ -672,7 +672,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     },
     {
         id: '7',
-        name: 'Javascript WebGl Basic Example',
+        name: 'Javascript WebGL Basic Example',
         description: `In the code snippet, we've done the following:
 
 1. Obtained the WebGL rendering context from the canvas.

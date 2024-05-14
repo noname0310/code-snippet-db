@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import * as hljsStyles from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { SnippetData } from '../../constants/testSets';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { MEDIA_MAX_WIDTH } from '../../constants/css';
+
+import { Linter } from 'eslint-linter-browserify';
 
 const SnippetViewDiv = styled.div`
     display: flex;
@@ -128,6 +130,10 @@ interface SnippetViewProps {
 function SnippetView(props: SnippetViewProps): JSX.Element {
     const { snippet, onClose } = props;
 
+    const [linter] = useState<Linter>(() => {
+        return new Linter({ configType: 'flat' });
+    });
+
     const style = useMemo((): { [key: string]: React.CSSProperties } => {
         return {
             ...hljsStyles.vs2015 || hljsStyles.vs,
@@ -141,6 +147,18 @@ function SnippetView(props: SnippetViewProps): JSX.Element {
             }
         };
     }, []);
+
+    const lintedCode = useMemo((): string => {
+        const messages = linter.verifyAndFix(snippet.code, {
+            parser: 'babel-eslint',
+            rules: {
+                'no-console': 'error',
+                'no-debugger': 'error',
+            }
+        });
+
+        return messages.output || snippet.code;
+    }, [snippet.code]);
 
     return (
         <SnippetViewDiv>
@@ -159,7 +177,7 @@ function SnippetView(props: SnippetViewProps): JSX.Element {
                     ))}
                 </SnippetViewDescriptionDiv>
                 <SyntaxHighlighter language="javascript" style={style} showLineNumbers={true} wrapLongLines={true}>
-                    {snippet.code}
+                    {lintedCode}
                 </SyntaxHighlighter>
                 <SnippetViewFooterDiv>
                     <SnippetViewFooterText>{snippet.language}</SnippetViewFooterText>
