@@ -149,13 +149,31 @@ function SnippetView(props: SnippetViewProps): JSX.Element {
     }, []);
 
     const lintedCode = useMemo((): string => {
-        const messages = linter.verifyAndFix(snippet.code, {
-            parser: 'babel-eslint',
+        const flatConfig: Linter.FlatConfig[] = [{
+            languageOptions: {
+                ecmaVersion: 2020,
+                // parser:
+                parserOptions: {
+                    ecmaVersion: 2020,
+                    ecmaFeatures: {
+                        jsx: true
+                    }
+                },
+            },
             rules: {
-                'no-console': 'error',
-                'no-debugger': 'error',
+                'indent': ['error', 2], // or '4'
+                'semi': ['error', 'always'], // or 'never'
+                'linebreak-style': ['error', 'unix'], // or 'windows'
+                'quotes': ['error', 'single'], // or 'double'
+                'brace-style': ['error', '1tbs'], // or 'allman'
             }
-        });
+        }];
+
+        const messages = linter.verifyAndFix(
+            snippet.code,
+            flatConfig,
+            { fix: true }
+        );
 
         return messages.output || snippet.code;
     }, [snippet.code]);

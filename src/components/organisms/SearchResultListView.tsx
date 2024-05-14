@@ -18,8 +18,8 @@ const ListViewContainerDiv = styled.div<ListViewContainerDivProps>`
     scrollbar-gutter: stable;
     margin-bottom: 20px;
 
-    width: ${props => props.sidebar ? '450px' : '100%'};
-    
+    width: ${props => props.sidebar ? '447px' : '100%'};
+    border-right: ${props => props.sidebar ? '3px solid ' + props.theme.colors.secondary : 'none'};
 `;
 
 const ListViewItemDiv = styled.div`

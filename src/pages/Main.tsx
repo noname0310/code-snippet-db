@@ -37,15 +37,19 @@ function Main(): JSX.Element {
             items={snippets}
             onItemSelect={(item) => setSelectedSnippet(item)}
             sidebar={selectedSnippet !== null} />;
+            
+    const snippetView = selectedSnippet !== null    
+        ? <SnippetView
+            snippet={selectedSnippet}
+            onClose={() => setSelectedSnippet(null)} />
+        : null;
 
     return (
         <MainFlexDiv>
             <NavBar onSearch={setSearchQuery} />
             <ContentContainerDiv>
                 {pagedListView}
-                {selectedSnippet && <SnippetView
-                    snippet={selectedSnippet}
-                    onClose={() => setSelectedSnippet(null)}/>}
+                {snippetView}
             </ContentContainerDiv>
         </MainFlexDiv>
     );
