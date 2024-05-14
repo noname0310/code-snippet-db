@@ -1,6 +1,7 @@
 export interface SnippetData {
     id: string;
     name: string;
+    author: string;
     description: string;
     code: string;
     language: string;
@@ -10,6 +11,7 @@ export const snippets: SnippetData[] = [
     {
         id: '1',
         name: 'CSS Constants',
+        author: 'John Doe',
         description: 'CSS constants for light themes',
         code: `export const LIGHT_THEME = {
     colors: {
@@ -48,6 +50,7 @@ export const snippets: SnippetData[] = [
     {
         id: '2',
         name: 'useEffect Example',
+        author: 'Sara Smith',
         description: 'Example of react useEffect hook',
         code: `import React, { useEffect } from 'react';
 
@@ -67,6 +70,7 @@ const Component = () => {
     {
         id: '3',
         name: 'bezier interpolation',
+        author: '29a.ch',
         description: 'bezier interpolation for animation easing',
         code: `/**
  * Cubic Bezier Interpolator for MMD animation interpolation
@@ -114,6 +118,7 @@ export class BezierInterpolator {
     {
         id: '4',
         name: 'Quadratic Equation Solver',
+        author: 'javascripttutorial.net',
         description: 'JavaScript Program to Solve Quadratic Equation',
         code: `// program to solve quadratic equation
 let root1, root2;
@@ -159,6 +164,7 @@ else {
     {
         id: '5',
         name: 'Vector2 Class',
+        author: 'three.js',
         description: 'Vector2 class for 2D vector operations',
         code: `import * as MathUtils from './MathUtils.js';
         
@@ -646,6 +652,7 @@ export { Vector2 };
     {
         id: '6',
         name: 'React BrowserRouter Example',
+        author: 'Dan Abramov',
         description: 'React Router BrowserRouter example',
         code: `import * as React from "react";
 import * as ReactDOM from "react-dom/client";
@@ -673,6 +680,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     {
         id: '7',
         name: 'Javascript WebGL Basic Example',
+        author: 'sjdonado',
         description: `In the code snippet, we've done the following:
 
 1. Obtained the WebGL rendering context from the canvas.
