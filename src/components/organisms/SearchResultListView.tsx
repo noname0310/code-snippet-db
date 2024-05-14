@@ -32,6 +32,7 @@ const ListViewItemDiv = styled.div`
     
     margin-top: 20px;
     padding: 10px;
+    padding-bottom: 0px;
     box-sizing: border-box;
 
     background-color: ${props => props.theme.colors.secondary};
@@ -54,7 +55,7 @@ const ListViewHeaderDiv = styled.div`
     
     box-sizing: border-box;
 
-    padding: 0px 10px;
+    padding: 0px 5px;
 `;
 
 const ListViewTitleDiv = styled.div`
