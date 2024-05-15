@@ -227,7 +227,7 @@ function SnippetView(props: SnippetViewProps): JSX.Element {
         }];
 
         const messages = linter.verifyAndFix(
-            snippet.code,
+            snippet.content,
             flatConfig,
             { fix: true }
         );
@@ -236,8 +236,8 @@ function SnippetView(props: SnippetViewProps): JSX.Element {
             ? null
             : messages.messages.filter((message) => message.severity === 2).map((message) => message.message).join('\n');
 
-        return [messages.output || snippet.code, errorMessages];
-    }, [snippet.code, linter, lintOption]);
+        return [messages.output || snippet.content, errorMessages];
+    }, [snippet.content, linter, lintOption]);
 
     const toast = useToast();
 
@@ -275,7 +275,7 @@ function SnippetView(props: SnippetViewProps): JSX.Element {
                     {lintedCode}
                 </SyntaxHighlighter>
                 <SnippetViewFooterDiv>
-                    <SnippetViewFooterText>{snippet.language}</SnippetViewFooterText>
+                    <SnippetViewFooterText>{snippet.contentLanguage}</SnippetViewFooterText>
                 </SnippetViewFooterDiv>
             </SnippetViewContentContainerDiv>
         </SnippetViewDiv>

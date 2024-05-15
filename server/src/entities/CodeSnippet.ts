@@ -1,4 +1,5 @@
 import { Field, InputType, Int, ObjectType } from 'type-graphql';
+import { Length } from 'class-validator';
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './User';
 
@@ -10,7 +11,7 @@ export class CodeSnippet extends BaseEntity {
         id!: number;
 
     @Field()
-    @Column()
+    @Column('mediumtext')
         name!: string;
 
     @Field(() => User)
@@ -18,11 +19,11 @@ export class CodeSnippet extends BaseEntity {
         author!: Promise<User>;
 
     @Field()
-    @Column()
+    @Column('longtext')
         description!: string;
 
     @Field()
-    @Column()
+    @Column('longtext')
         content!: string;
 
     @Field()
@@ -37,6 +38,7 @@ export class CodeSnippet extends BaseEntity {
 @InputType()
 export class CodeSnippetInput {
     @Field()
+    @Length(1, 100)
         name!: string;
 
     @Field()
@@ -52,6 +54,7 @@ export class CodeSnippetInput {
 @InputType()
 export class CodeSnippetUpdate {
     @Field()
+    @Length(1, 100)
         name!: string;
 
     @Field()

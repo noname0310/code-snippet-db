@@ -136,7 +136,7 @@ function RegisterForm(): JSX.Element {
         const emailError = emailValidator(email, emailVerified);
         const passwordError = passwordValidator(password);
         const passwordConfirmError = passwordConfirmValidator(passwordConfirm);
-        
+
         setUsernameError(usernameError);
         setEmailError(emailError);
         setPasswordError(passwordError);

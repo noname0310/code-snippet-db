@@ -131,7 +131,7 @@ function ListViewItem(props: ListViewItemProps): JSX.Element {
             </ListViewHeaderDiv>
               
             <SyntaxHighlighter language="javascript" style={style}>
-                {item.code.trimStart().split('\n').slice(0, 9).join('\n')}
+                {item.content.trimStart().split('\n').slice(0, 9).join('\n')}
             </SyntaxHighlighter>
         </ListViewItemDiv>
     );

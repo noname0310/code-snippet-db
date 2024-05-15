@@ -3,17 +3,17 @@ export interface SnippetData {
     name: string;
     author: string;
     description: string;
-    code: string;
-    language: string;
+    content: string;
+    contentLanguage: string;
 }
 
-export const snippets: SnippetData[] = [
+export const staticSnippets: SnippetData[] = [
     {
-        id: '1',
+        id: '-1',
         name: 'CSS Constants',
         author: 'John Doe',
         description: 'CSS constants for light themes',
-        code: `export const LIGHT_THEME = {
+        content: `export const LIGHT_THEME = {
     colors: {
         background: '#fff',
         secondaryBackground: '#FFFFFF',
@@ -45,14 +45,14 @@ export const snippets: SnippetData[] = [
     }
 };
 `,
-        language: 'javascript'
+        contentLanguage: 'javascript'
     },
     {
-        id: '2',
+        id: '-2',
         name: 'useEffect Example',
         author: 'Sara Smith',
         description: 'Example of react useEffect hook',
-        code: `import React, { useEffect } from 'react';
+        content: `import React, { useEffect } from 'react';
 
 const Component = () => {
     useEffect(() => {
@@ -65,14 +65,14 @@ const Component = () => {
     return <div>Component</div>;
 };
 `,
-        language: 'javascript'
+        contentLanguage: 'javascript'
     },
     {
-        id: '3',
+        id: '-3',
         name: 'bezier interpolation',
         author: '29a.ch',
         description: 'bezier interpolation for animation easing',
-        code: `/**
+        content: `/**
  * Cubic Bezier Interpolator for MMD animation interpolation
  */
 export class BezierInterpolator {
@@ -113,14 +113,14 @@ export class BezierInterpolator {
     }
 }
 `,
-        language: 'javascript'
+        contentLanguage: 'javascript'
     },
     {
-        id: '4',
+        id: '-4',
         name: 'Quadratic Equation Solver',
         author: 'javascripttutorial.net',
         description: 'JavaScript Program to Solve Quadratic Equation',
-        code: `// program to solve quadratic equation
+        content: `// program to solve quadratic equation
 let root1, root2;
 
 // take input from the user
@@ -159,14 +159,14 @@ else {
     );
 }
 `,
-        language: 'javascript'
+        contentLanguage: 'javascript'
     },
     {
-        id: '5',
+        id: '-5',
         name: 'Vector2 Class',
         author: 'three.js',
         description: 'Vector2 class for 2D vector operations',
-        code: `import * as MathUtils from './MathUtils.js';
+        content: `import * as MathUtils from './MathUtils.js';
         
 class Vector2 {
 
@@ -647,14 +647,14 @@ class Vector2 {
 
 export { Vector2 };
 `,
-        language: 'javascript'
+        contentLanguage: 'javascript'
     },
     {
-        id: '6',
+        id: '-6',
         name: 'React BrowserRouter Example',
         author: 'Dan Abramov',
         description: 'React Router BrowserRouter example',
-        code: `import * as React from "react";
+        content: `import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
     createBrowserRouter,
@@ -675,10 +675,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </React.StrictMode>
 );
 `,
-        language: 'javascript'
+        contentLanguage: 'javascript'
     },
     {
-        id: '7',
+        id: '-7',
         name: 'Javascript WebGL Basic Example',
         author: 'sjdonado',
         description: `In the code snippet, we've done the following:
@@ -690,7 +690,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 5. Compiled and linked the shaders using helper functions createShader and createProgram.
 6. Used the shader program to draw a single point on the canvas.
 `,
-        code: `// Get the WebGL canvas element
+        content: `// Get the WebGL canvas element
 const canvas = document.getElementById("webglCanvas");
 
 
@@ -763,7 +763,7 @@ gl.useProgram(program);
 // Draw a point using the shaders
 gl.drawArrays(gl.POINTS, 0, 1);
 `,
-        language: 'javascript'
+        contentLanguage: 'javascript'
     }
 ];
 

@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import * as hljsStyles from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { SnippetData, snippets } from '../../constants/testSets';
-import { useCallback, useMemo, useState } from 'react';
+import { SnippetData, staticSnippets } from '../../constants/testSets';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MEDIA_MAX_WIDTH } from '../../constants/css';
 
 import { Button1 } from '../atoms/styled';
@@ -172,12 +172,13 @@ const SubmitButton = styled(Button1)`
 `;
 
 interface SnippetViewProps {
+    initialSnippetName: string;
     onClose: () => void;
     onSubmit: (snippet: SnippetData) => void;
 }
 
 function UploadSnippetView(props: SnippetViewProps): JSX.Element {
-    const { onClose, onSubmit } = props;
+    const { initialSnippetName, onClose, onSubmit } = props;
 
     const [snippetName, setSnippetName] = useState<string>('');
     const [snippetNameError, setSnippetNameError] = useState<string | null>(null);
@@ -187,6 +188,12 @@ function UploadSnippetView(props: SnippetViewProps): JSX.Element {
 
     const [snippetCode, setSnippetCode] = useState<string>('');
     const [snippetCodeError, setSnippetCodeError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (initialSnippetName) {
+            setSnippetName(initialSnippetName);
+        }
+    }, [initialSnippetName]);
 
     const style = useMemo((): { [key: string]: React.CSSProperties } => {
         return {
@@ -233,12 +240,12 @@ function UploadSnippetView(props: SnippetViewProps): JSX.Element {
         }
 
         onSubmit({
-            id: (snippets.length + 1).toString(),
+            id: (staticSnippets.length + 1).toString(),
             name: snippetName,
             author: user.username,
             description: snippetDescription,
-            code: snippetCode,
-            language: 'javascript'
+            content: snippetCode,
+            contentLanguage: 'javascript'
         });
     }, [snippetName, snippetDescription, snippetCode, user]);
 

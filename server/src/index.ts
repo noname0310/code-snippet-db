@@ -1,4 +1,3 @@
-
 import 'reflect-metadata';
 import { PORT, DEVELOPMENT } from './const';
 import http from 'http';
@@ -27,6 +26,7 @@ async function main() {
     app.use(cors({ origin: '*', credentials: true }));
 
     const mysqlDataSource = await(await getDataSource()).initialize();
+    // mysqlDataSource.synchronize(true);
 
     const container = new ContainerInstance(Math.random().toString());
     addRepositories(container, mysqlDataSource);

@@ -45,11 +45,11 @@ export class CodeSnippetResolver {
 
         const newSnippet = this.codeSnippetRepository.create({
             name: snippet.name,
-            author: Promise.resolve(user),
             description: snippet.description,
             content: snippet.content,
             contentLanguage: snippet.contentLanguage
         });
+        newSnippet.author = Promise.resolve(user);
         await newSnippet.save();
 
         return newSnippet;

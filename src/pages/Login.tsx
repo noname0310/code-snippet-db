@@ -216,10 +216,6 @@ function LoginWithSocialForm(): JSX.Element {
             });
     }, [apolloClient, toast.showToast, setJwt, navigate]);
 
-    // const handleError = useCallback((error: string) => {
-    //     toast.showToast(error, 'error');
-    // }, [toast.showToast]);
-
     return (
         <SignInWithSocialDiv>
             <MarginBottomLeftAlignDiv>{'Sign in with'}</MarginBottomLeftAlignDiv>
