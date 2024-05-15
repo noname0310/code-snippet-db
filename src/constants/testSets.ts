@@ -764,6 +764,32 @@ gl.useProgram(program);
 gl.drawArrays(gl.POINTS, 0, 1);
 `,
         contentLanguage: 'javascript'
+    },
+    {
+        id: '-8',
+        name: 'Basic depth-first search for each node in the graph',
+        author: 'nicholaswmin',
+        description: `Depth-first search algorithm for graph traversal
+grpah represented as an adjacency list`,
+        content: `function dfsForeach(graph, start, action)
+{
+    const visited = Array(graph.length).fill(false);
+    const stack = [start]
+    visited[start] = true
+
+    while (stack.length > 0) {
+    const node = stack.pop();
+    action(node);
+
+    for (let i = 0; i < graph[node].length; i++) {
+    if (graph[node][i] === 1 && !visited[i]) {
+    stack.push(i);
+    visited[i] = true;
+    }
+    }
+    }
+}`,
+        contentLanguage: 'javascript'
     }
 ];
 
